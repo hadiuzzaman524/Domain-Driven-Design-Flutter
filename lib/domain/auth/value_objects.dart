@@ -4,7 +4,7 @@ import 'package:domain_driven_design/domain/core/value_objects.dart';
 
 import '../core/validators.dart';
 
-class EmailAddress implements ValueObject<String> {
+class EmailAddress extends ValueObject<String> {
   @override
   final Either<ValueFailures<String>, String> value;
 
@@ -15,7 +15,7 @@ class EmailAddress implements ValueObject<String> {
   }
 }
 
-class Password implements ValueObject<String> {
+class Password extends ValueObject<String> {
   @override
   final Either<ValueFailures<String>, String> value;
 
