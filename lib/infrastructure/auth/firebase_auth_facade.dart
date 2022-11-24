@@ -12,9 +12,12 @@ class FirebaseAuthFacade implements MyAuthFacade {
   FirebaseAuthFacade(this.firebaseAuth);
 
   @override
-  Future<Option<AppUser>> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
+  Future<Option<AppUser>> getCurrentUser() async {
+    final user = firebaseAuth.currentUser;
+    if (user == null) {
+      return none();
+    }
+    return some(AppUser());
   }
 
   @override
@@ -38,14 +41,26 @@ class FirebaseAuthFacade implements MyAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
-      {required EmailAddress emailAddress, required Password password}) {
-    // TODO: implement signInWithEmailAndPassword
-    throw UnimplementedError();
+      {required EmailAddress emailAddress, required Password password}) async {
+    try {
+      final String emailStr = emailAddress.getSuccessOrCrush();
+      final String passwordStr = password.getSuccessOrCrush();
+
+      await firebaseAuth.signInWithEmailAndPassword(
+          email: emailStr, password: passwordStr);
+      return right(unit);
+    } on PlatformException catch (e) {
+      if (e.code == "ERROR_WRONG_PASSWORD" ||
+          e.code == "ERROR_USER_NOT_FOUND") {
+        return left(const AuthFailure.invalidEmailAndPassword());
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    }
   }
 
   @override
   Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+    return Future.wait([firebaseAuth.signOut()]);
   }
 }
