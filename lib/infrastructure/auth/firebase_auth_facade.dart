@@ -17,7 +17,7 @@ class FirebaseAuthFacade implements MyAuthFacade {
     if (user == null) {
       return none();
     }
-    return some(AppUser());
+    return some(AppUser(uid: user.uid));
   }
 
   @override

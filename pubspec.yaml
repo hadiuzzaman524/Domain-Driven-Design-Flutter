@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^2.3.0
   flutter_bloc: ^8.1.1
   bloc: ^8.1.0
+  get_it: ^7.2.0
+  injectable: ^2.0.1
 
 
 dev_dependencies:
