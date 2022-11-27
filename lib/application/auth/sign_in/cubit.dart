@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../domain/auth/my_auth_facade.dart';
 import 'state.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class SignInCubit extends Cubit<SignInState> {
   final MyAuthFacade myAuthFacade;
 

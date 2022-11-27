@@ -5,7 +5,9 @@ import 'package:domain_driven_design/domain/auth/my_auth_facade.dart';
 import 'package:domain_driven_design/domain/auth/value_objects.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: MyAuthFacade)
 class FirebaseAuthFacade implements MyAuthFacade {
   final FirebaseAuth firebaseAuth;
 
